@@ -1,14 +1,23 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { URLAnalyzer } from '@/components/URLAnalyzer';
+import { ResultsDashboard } from '@/components/ResultsDashboard';
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const [analyzedUrl, setAnalyzedUrl] = useState<string | null>(null);
+
+  const handleAnalyze = (url: string) => {
+    setAnalyzedUrl(url);
+  };
+
+  const handleBack = () => {
+    setAnalyzedUrl(null);
+  };
+
+  if (analyzedUrl) {
+    return <ResultsDashboard url={analyzedUrl} onBack={handleBack} />;
+  }
+
+  return <URLAnalyzer onAnalyze={handleAnalyze} />;
 };
 
 export default Index;
